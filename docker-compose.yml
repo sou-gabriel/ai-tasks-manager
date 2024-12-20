@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres
+    container_name: ai-tm-db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: ai-tm-db
+    volumes:
+      - postgres_data:/var/lib/postgres/data
+
+volumes:
+  postgres_data:
