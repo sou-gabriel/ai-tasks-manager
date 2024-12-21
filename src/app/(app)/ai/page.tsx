@@ -7,6 +7,7 @@ import { useRef, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { getSuggestions } from '@/modules/tasks';
 import { useQuery } from '@tanstack/react-query';
 
 export default function AiPage() {
@@ -17,12 +18,7 @@ export default function AiPage() {
   const { data: suggestions = [], isLoading: isLoadingSuggestions } = useQuery({
     staleTime: 1000 * 60 * 5, // 5 minutes
     queryKey: ['@atm.chat.suggestions'],
-    queryFn: async () => {
-      const res = await fetch('http://localhost:3000/api/chat/suggestions')
-      const suggestions: string = await res.json()
-
-      return suggestions as unknown as string[]
-    },
+    queryFn: getSuggestions,
     enabled: isFocused
   })
 
@@ -31,7 +27,6 @@ export default function AiPage() {
   }
 
   function handleInputBlur() {
-    console.log('handleInputBlur')
     setIsFocused(false)
   }
 
