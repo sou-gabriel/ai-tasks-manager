@@ -7,7 +7,7 @@ import { useRef, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { useGetSuggestions } from '@/modules/tasks';
+import { useGetSuggestions } from '@/modules/ai';
 
 export default function AiPage() {
   const { messages, input, handleInputChange, handleSubmit, isLoading, setInput } = useChat()

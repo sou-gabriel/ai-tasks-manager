@@ -1,10 +1,9 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
 import { useQueryState } from 'nuqs'
 
 import { useDebounce } from '@/hooks/use-debounce'
-import { getTasks } from '../services/get-services'
+import { useGetTasks } from '../hooks/use-get-tasks'
 import { TaskActions } from './task-actions'
 import { TasksListSkeleton } from './tasks-list-skeleton'
 
@@ -12,12 +11,9 @@ export function TasksList() {
   const [query] = useQueryState('q')
   const debouncedQuery = useDebounce(query ?? '')
 
-  const { data: tasks = [], isLoading } = useQuery({
-    queryKey: ['@atm.tasks', debouncedQuery],
-    queryFn: () => getTasks(debouncedQuery),
-  })
+  const { tasks, isLoadingTasks } = useGetTasks(debouncedQuery)
 
-  if (isLoading) {
+  if (isLoadingTasks) {
     return <TasksListSkeleton />
   }
 
