@@ -4,6 +4,6 @@ export * from './components/task-actions'
 export * from './components/task-form'
 export * from './components/tasks-list'
 
+export * from './hooks/use-get-suggestions'
 export * from './services/get-services'
-export * from './services/get-suggestions'
 

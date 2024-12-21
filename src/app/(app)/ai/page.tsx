@@ -7,20 +7,14 @@ import { useRef, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { getSuggestions } from '@/modules/tasks';
-import { useQuery } from '@tanstack/react-query';
+import { useGetSuggestions } from '@/modules/tasks';
 
 export default function AiPage() {
   const { messages, input, handleInputChange, handleSubmit, isLoading, setInput } = useChat()
   const [isFocused, setIsFocused] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const { data: suggestions = [], isLoading: isLoadingSuggestions } = useQuery({
-    staleTime: 1000 * 60 * 5, // 5 minutes
-    queryKey: ['@atm.chat.suggestions'],
-    queryFn: getSuggestions,
-    enabled: isFocused
-  })
+  const { suggestions, isLoadingSuggestions } = useGetSuggestions(isFocused)
 
   async function handleInputFocus() {
     setIsFocused(true)
@@ -36,6 +30,7 @@ export default function AiPage() {
 
   if (messages.length === 0) {
     const shouldShowSuggestions = isFocused && suggestions.length > 0 && !isLoadingSuggestions && input.trim().length === 0
+
     return (
       <div>
         <form onSubmit={handleSubmit} className="relative flex w-full gap-2">
