@@ -31,7 +31,7 @@ export function AppNav() {
           ]
         )}
       >
-        Assistente
+        AI Chat
       </Link>
     </nav>
   )
