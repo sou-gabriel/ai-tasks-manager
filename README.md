@@ -23,7 +23,12 @@ Antes de começar, certifique-se de ter instalado:
 
 Foi utilizado o React Query para auxiliar nas buscas por tarefas, além de prover estados referentes ao carregamento das informações e invalidação das tarefas de maneira prática. Para acelerar a busca por tasks, é realizada uma pré-busca durante a build da página inicial. Assim, quando entramos no TasksList (um client-component), já temos praticamente os dados das tasks carregados, o que melhora significativamente a experiência do usuário na visualização inicial dos primeiros itens da listagem. Um dos motivos para o uso do React Query também foi o cache das tasks, o que evita buscas desnecessárias para recuperar esses dados - algo crucial nesta aplicação, pois essas chamadas consomem o plano na API da OpenAI para geração das sugestões.
 
-Em relação à API da OpenAI, foi integrado o recurso de generateText para matching das sugestões de tarefas relacionadas com base no nome das tasks fornecidas no prompt. O objetivo é que o output dessa utilização retorne, dentre os itens listados, aqueles que mais fazem sentido de acordo com o termo inserido pelo usuário.
+Para geração de sugestões está sendo utilizado a AI SDK da Vercel para gerar sugestões
+de perguntas para um Chatbot, tendo um fallback com sugestões pré-definidas caso haja
+a falha na comunicação com a IA. Para evitar o consumo de muitos tokens, gerando diversas
+requisições foi adicionado um cache na minha rota /api/chat/suggestions de 5 segundos, ou seja, a cada 5 minutos que há essa geração das sugestões pela IA, caso contrário é usado
+o valor armazenado em cache. É usado um cache também a nível do componente usando o Tanstack Query, no valor de 5 minutos. Tirando esse recurso de sugestão, todo o chatbot é feito
+com a IA.
 
 A biblioteca Nuqs foi utilizada para auxiliar na manipulação dos query params da aplicação, atualizando-os diretamente na URL de maneira instantânea e permitindo manipulá-los como simples states do React. A adoção dessa biblioteca se deu pela necessidade de recuperar a pesquisa do usuário em um componente irmão ao SearchTasks. Para evitar fazer um lift-state para compartilhar esse estado, optou-se por armazená-lo diretamente na URL, o que também facilita para o usuário caso ele deseje compartilhar o resultado da sua pesquisa com outros usuários.
 

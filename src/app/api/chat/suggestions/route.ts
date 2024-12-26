@@ -1,3 +1,4 @@
+import { logError } from "@/lib/utils";
 import { openai } from "@ai-sdk/openai";
 import { generateText } from "ai";
 import { NextResponse } from "next/server";
@@ -7,7 +8,7 @@ let cache = {
   timestamp: 0,
 };
 
-const CACHE_DURATION = 5;
+const CACHE_DURATION = 5 * 60; // 5 minutes
 
 export async function GET() {
   const now = Date.now();
@@ -30,6 +31,12 @@ export async function GET() {
 
     suggestions = JSON.parse(text) as unknown as string[];
   } catch (error) {
+    const errorMessage =
+      error instanceof Error
+        ? error?.message
+        : "Failed to generate suggestions";
+    logError(errorMessage);
+
     suggestions = cache.data || [
       "Qual é a capital da França?",
       "Como funciona a fotossíntese?",

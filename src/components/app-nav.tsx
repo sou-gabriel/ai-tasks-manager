@@ -12,10 +12,10 @@ export function AppNav() {
   return (
     <nav className='flex items-center gap-2'>
       <Link
-        href="/tasks"
+        href="/"
         className={cn(
           buttonVariants({ variant: 'ghost', size: 'sm' }),
-          pathname.includes('/tasks') && [
+          pathname.includes('/') && pathname !== '/ai' && [
             "bg-accent text-accent-foreground font-semibold",
           ]
         )}
@@ -26,12 +26,12 @@ export function AppNav() {
         href="/ai"
         className={cn(
           buttonVariants({ variant: 'ghost', size: 'sm' }),
-          pathname.includes('/ai') && [
+          pathname.includes('/ai') && pathname !== '/' && [
             "bg-accent text-accent-foreground font-semibold",
           ]
         )}
       >
-        Assistente
+        AI Chat
       </Link>
     </nav>
   )
