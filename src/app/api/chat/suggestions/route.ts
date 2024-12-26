@@ -37,7 +37,6 @@ export async function GET() {
         : "Failed to generate suggestions";
     logError(errorMessage);
 
-    console.error("Failed to generate suggestions:", error);
     suggestions = cache.data || [
       "Qual é a capital da França?",
       "Como funciona a fotossíntese?",
