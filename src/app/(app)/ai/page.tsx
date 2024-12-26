@@ -39,7 +39,7 @@ export default function AiPage() {
             onChange={handleInputChange}
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}
-            placeholder="Digite sua mensagem..."
+            placeholder="Type your message..."
             className="flex-grow"
             ref={inputRef}
           />
@@ -94,7 +94,7 @@ export default function AiPage() {
             onChange={handleInputChange}
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}
-            placeholder="Digite sua mensagem..."
+            placeholder="Type your message..."
             className="flex-grow"
             ref={inputRef}
           />
