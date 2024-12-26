@@ -1,4 +1,5 @@
 import { env } from "@/env";
+import { logError } from "@/lib/utils";
 
 class HttpClientError extends Error {
   status: number;
@@ -30,5 +31,6 @@ export async function httpClient<T = unknown>(
     ? (await res.json()).message
     : `Failed to fetch "${path}"`;
 
+  logError(errorMessage);
   throw new HttpClientError(errorMessage, res.status);
 }
